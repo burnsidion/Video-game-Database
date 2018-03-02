@@ -1,0 +1,45 @@
+.welcome{
+  font-family:'Orbitron', sans-serif;
+  color: blue;
+
+}
+.introduction{
+  font-family: 'Berkshire Swash', cursive;
+}
+#search-button{
+  font-family: 'Orbitron', sans-serif;
+  font-weight: bold;
+  color: red;
+}
+#search-input{
+  font-style: italic;
+}
+#destroy{
+  font-family:'Orbitron', sans-serif;
+  font-weight: bold;
+  color: red;
+}
+#results{
+  font-family: 'Orbitron', sans-serif;
+  color: red;
+  background-image:url("images/Background.jpg");
+  /*max-width: 30px;*/
+}
+#results >img{
+  max-width: 100px;
+  height: auto;
+}
+
+#body{
+  background-color: rgb(51, 204, 255);}
+  background-image:url("images/Background.jpg");
+}
+
+.image{
+  /*max-width: 30px;*/
+  /*height: 300px;*/
+}
+
+.game{
+  /*max-width: 100px;*/
+}
