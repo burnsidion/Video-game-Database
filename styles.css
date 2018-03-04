@@ -1,4 +1,4 @@
-.welcome{
+#welcome{
   font-family:'Orbitron', sans-serif;
   color: blue;
 
@@ -14,32 +14,28 @@
 #search-input{
   font-style: italic;
 }
-#destroy{
-  font-family:'Orbitron', sans-serif;
-  font-weight: bold;
-  color: red;
-}
+
+
+/* .container {
+  display: flex;
+  flex-wrap: wrap;
+} */
+
 #results{
   font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
   color: red;
   background-image:url("images/Background.jpg");
+
   /*max-width: 30px;*/
 }
-#results >img{
-  max-width: 100px;
+#results img{
+  max-width: 200px;
+  max-height: 200px;
   height: auto;
 }
 
 #body{
   background-color: rgb(51, 204, 255);}
   background-image:url("images/Background.jpg");
-}
-
-.image{
-  /*max-width: 30px;*/
-  /*height: 300px;*/
-}
-
-.game{
-  /*max-width: 100px;*/
 }
