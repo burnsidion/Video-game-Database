@@ -6,6 +6,13 @@
 
 }
 
+#header{
+  background-image: url("images/PACMANnew.jpg");
+  /* background-repeat: no-repeat; */
+  background-size: contain;
+
+}
+
 .introduction{
   font-family: 'Berkshire Swash', cursive;
   text-align: center;
@@ -27,19 +34,23 @@
 #results{
   font-family: 'Orbitron', sans-serif;
   font-size: 20px;
-  color: black;
-  background-image: url("images/Background.jpg");
+  color: maroon;
+
+  background-image: url("https://wallpapertag.com/wallpaper/full/9/2/2/381480-video-game-background-3509x2070-for-mac.jpg");
+  /* filter: blur(15px); */
   background-size: cover;
   text-align: center;
   background-color: rgba(255,255,255, .5);
   background-attachment: fixed;
 
+
 }
 
-.game{
+.game {
   border : solid black 2px;
-  background-color: rgba(255,255,255, 0.5);
-  }
+  background-color: rgba(255, 255, 255, 0.5);
+
+}
 
 .image{
   max-width: 150px;
