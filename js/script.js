@@ -10,7 +10,7 @@ $('document').ready(function() {
   function searchHandler(e) {
     e.preventDefault();
     var query = $("#search-input").val();
-    var url = `https://www.giantbomb.com/api/games/?api_key=38cff389d031a893f76688dcf11e5024bdf0f523&sort=original_release_date:asc`;
+    var url = `https://www.giantbomb.com/api/games/?api_key=38cff389d031a893f76688dcf11e5024bdf0f523`;
 
     $.ajax({
       url: "http://api.giantbomb.com/search",
@@ -27,8 +27,8 @@ $('document').ready(function() {
       },
 
       success: function(results) {
-        //console.log(results);
-        console.log('RESULTS: ', results.results);
+        console.log("Results: ", results.results);
+
         for (var i = 0; i < results.results.length; i++) {
           let name = results.results[i].name;
           let image = results.results[i].image.small_url;
@@ -55,7 +55,7 @@ $('document').ready(function() {
 
 
           const platformsArr = (platformList === null)
-            ? `No platforms!`
+            ? `Uh OH! No Platforms could be found!!`
             : platformList.map(p => p.name);
 
           if (releaseDate === null) {
@@ -66,7 +66,7 @@ $('document').ready(function() {
 
           //var platforms = results.results[i].api_detail_url[];
           //console.log(platforms);
-          let game = `<div class="game">
+          let game = `<div class="game col-sm-4">
           <h2> ${name} </h2>
           <p> Released: ${releaseDate} </p>
           <p> Platforms: ${platformsArr} </p>
