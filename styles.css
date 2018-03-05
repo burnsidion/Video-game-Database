@@ -2,48 +2,61 @@
 
 #welcome{
   font-family:'Orbitron', sans-serif;
-  color: blue;
+  color: lime;
 
 }
 
 #header{
-  background-image: url("images/PACMANnew.jpg");
+  background-color: inherit;
+  background-image: url("images/ezgif.com-crop.gif");
   /* background-repeat: no-repeat; */
   background-size: contain;
+  height: 200px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: solid black 2px;
 
 }
 
 .introduction{
-  font-family: 'Berkshire Swash', cursive;
-  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  text-align: right;
+  color: lime;
+  padding-right: 10px;
+  padding-bottom: 10px;
 }
 #search-button{
   font-family: 'Orbitron', sans-serif;
   font-weight: bold;
   color: red;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  margin-right: 10px;
 }
 #search-input{
   font-style: italic;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
 }
-
-
 .col-sm-4{
   margin: 10px;
 }
+
+
 
 #results{
   font-family: 'Orbitron', sans-serif;
   font-size: 20px;
   color: maroon;
 
-  background-image: url("https://wallpapertag.com/wallpaper/full/9/2/2/381480-video-game-background-3509x2070-for-mac.jpg");
+  background-image: url("images/background-mario.jpg");
   /* filter: blur(15px); */
   background-size: cover;
   text-align: center;
   background-color: rgba(255,255,255, .5);
   background-attachment: fixed;
-
-
 }
 
 .game {
@@ -58,10 +71,18 @@
 }
 
 #body{
-  background-color: rgb(51, 204, 255);
-  text-align: center;
+  background-color: navy;
+  text-align: right;
 }
 
 .row {
   justify-content: center;
 }
+
+.keyword{
+  margin-top: 30px;
+
+}
+
+/* MEDIA QUERYS!!!! */
+im

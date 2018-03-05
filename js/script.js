@@ -73,6 +73,12 @@ $('document').ready(function() {
           <img class="image" src= ${image}>
           </div>`
 
+          //
+          //   <div class="image"></div>
+          // $(myDiv).css('background-image', 'url("${image}")')
+
+
+
           $('#results').append(game);
         }
       }
