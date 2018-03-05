@@ -23,19 +23,19 @@
 
 #results{
   font-family: 'Orbitron', sans-serif;
-  font-size: 10px;
+  font-size: 20px;
   color: red;
   background-image:url("images/Background.jpg");
 
   /*max-width: 30px;*/
 }
 #results img{
-  max-width: 200px;
-  max-height: 200px;
-  height: auto;
+  max-width: 250px;
+  max-height: 250px;
+  
 }
 
 #body{
-  background-color: rgb(51, 204, 255);}
-  background-image:url("images/Background.jpg");
+  background-color: rgb(51, 204, 255);
+
 }
