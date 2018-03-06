@@ -21,7 +21,7 @@ $('document').ready(function() {
         limit: 100,
         query: `"${query}"`,
         format: "jsonp",
-        field_list: "name,image,original_release_date,description,expected_release_year,platforms",
+        field_list: "name,image,original_release_date,deck,expected_release_year,platforms",
         resources: "game,platform",
         results: 100
       },
@@ -32,15 +32,10 @@ $('document').ready(function() {
         for (var i = 0; i < results.results.length; i++) {
           let name = results.results[i].name;
           let image = results.results[i].image.small_url;
-          let expecRel = results.results[i].expected_release_year;
           let releaseDate = results.results[i].original_release_date;
           let platformList = results.results[i].platforms;
-          let description = results.results[i].description;
-
-          // if(description === null){
-          //   description = "Description could not be found!!"
-          // }
-          // console.log(description);
+          let description = results.results[i].deck
+          console.log(description);
 
           // let platformsArr = []
           //
@@ -53,10 +48,9 @@ $('document').ready(function() {
           //   })
           // }
 
-
-          const platformsArr = (platformList === null)
-            ? `Uh OH! No Platforms could be found!!`
-            : platformList.map(p => p.name);
+          const platformsArr = (platformList === null) ?
+            `Uh OH! No platforms could be found!!` :
+            platformList.map(p => p.name);
 
           if (releaseDate === null) {
             releaseDate = "TBA"
@@ -64,8 +58,8 @@ $('document').ready(function() {
 
           releaseDate = releaseDate.replace('00:00:00', '')
 
-          //var platforms = results.results[i].api_detail_url[];
-          //console.log(platforms);
+          //MAKE EACH TITLE A CLICKABLE LINK TO THE DESCRIPTION
+
           let game = `<div class="game col-sm-4">
           <h2> ${name} </h2>
           <p> Released: ${releaseDate} </p>
