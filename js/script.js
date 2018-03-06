@@ -3,7 +3,35 @@ $('document').ready(function() {
 
   $("#search-button").on("click", function() {
     $("#results").empty();
+    $("#descrip-list").empty();
+
   })
+
+  $("#results").on("click", ".favorite", function(event) {
+    let game = $(event.target).closest(".game")
+    let name = $(game).find(".game-title").text()
+    setFavorite(name, true)
+    updateSidebar()
+
+
+  })
+
+  function setFavorite(name,value){
+    let favorites = JSON.parse(localStorage.getItem("favorites") || '{}')
+    console.log(favorites);
+    favorites[name] = value
+
+    localStorage.setItem("favorites", JSON.stringify(favorites))
+  }
+
+  function updateSidebar(){
+  let favorites =  JSON.parse(localStorage.getItem("favorites") || '{}')
+  $(game)
+
+  }
+
+
+
 
   $("#search-form").on("submit", searchHandler);
 
@@ -49,7 +77,7 @@ $('document').ready(function() {
           // }
 
           const platformsArr = (platformList === null) ?
-            `Uh OH! No platforms could be found!!` :
+            `UH-OH! No platforms could be found!!` :
             platformList.map(p => p.name);
 
           if (releaseDate === null) {
@@ -58,20 +86,23 @@ $('document').ready(function() {
 
           releaseDate = releaseDate.replace('00:00:00', '')
 
-          //MAKE EACH TITLE A CLICKABLE LINK TO THE DESCRIPTION
+
 
           let game = `<div class="game col-sm-4">
-          <h3> <a href="#modal${i}" data-target="#modal${i}" data-toggle="modal"> ${name} </a> </h3>
-          <p> Released: ${releaseDate} </p>
-          <p> Platforms: ${platformsArr} </p>
+          <h3> <a class="game-title" href="#modal${i}" data-target="#modal${i}" data-toggle="modal"> ${name} </a> </h3>
+          <p class="release-date"> Released: ${releaseDate} </p>
+          <p class = "platform-list"> Platforms: ${platformsArr} </p>
           <img class="image" src= ${image}>
+          <button class = "favorite"> Favorite </button>
           </div>`
+
+          //MAKE EACH TITLE A CLICKABLE LINK TO THE DESCRIPTION
 
           let gameDescrip = `<div class="modal fade" id="modal${i}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">${name}</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -81,23 +112,20 @@ $('document').ready(function() {
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
               </div>
             </div>
           </div>`
 
-          //
-          //   <div class="image"></div>
-          // $(myDiv).css('background-image', 'url("${image}")')
+
 
 
 
           $('#results').append(game);
-          $('#body').append(gameDescrip)
+          $('#descrip-list').append(gameDescrip)
         }
 
-         //$('.modal').modal()
+
 
 
       }
