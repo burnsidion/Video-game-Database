@@ -1,92 +1,99 @@
-
-
-#welcome{
-  font-family: 'Press Start 2P', cursive;
-  color: lime;
-
+#body {
+  background-image: url("../images/background-mario.jpg");
+  background-size: cover;
+  text-align: right;
 }
 
-#header{
+#welcome {
+  font-family: 'Press Start 2P', cursive;
+  color: lime;
+}
+
+#header {
   background-color: inherit;
-  background-image: url("../images/ezgif.com-crop.gif");
+  background-image: url("../images/ezgif.com-resize.gif");
   /* background-repeat: no-repeat; */
   background-size: contain;
   height: 200px;
-  background-repeat: no-repeat;
-  background-size: cover;
+   /* background-repeat: no-repeat; */
+   /* background-size: cover; */
   border: solid green 2px;
-
 }
 
-.introduction{
+.introduction {
   font-family: 'Press Start 2P', cursive;
-  text-align: right;
   color: lime;
-  padding-right: 200px;
-  padding-bottom: 10px;
+  display: inline;
+  padding-right: 80px;
+
+
 }
-#search-button{
+
+#results h3{
+  padding-top:  10px;
+}
+
+#search-button {
   font-family: 'Orbitron', sans-serif;
   font-weight: bold;
   color: black;
   margin-top: 10px;
-  margin-right: 280px;
+  margin-right: 325px;
+
 }
-#search-input{
+
+#search-button:hover {
+  cursor: pointer;
+}
+
+#search-input {
   font-style: italic;
-  padding-top:  0px;
-  padding-bottom: 5px;
+  padding-top: 0px;
+  padding-bottom: 4.5px;
   border: 0px;
+
 }
-.col-sm-4{
+
+.col-sm-4 {
   margin: 10px;
-
 }
 
-.col-sm-4:hover{
+#search{
+  padding-top: 50px;
+}
+
+.col-sm-4:hover {
   cursor: pointer;
   /* animation: bounce 1s; */
   transform: translate(0px, -10px);
   transition: 0.1s;
 }
 
-
-
-
-#results{
-  font-family: 'Orbitron', sans-serif;
-  font-size: 20px;
+#results {
+  font-size: 10px;
   color: maroon;
-
+  font-family: 'Press Start 2P', cursive;
   background-image: url("../images/background-mario.jpg");
   /* filter: blur(15px); */
   background-size: cover;
   text-align: center;
-  background-color: rgba(255,255,255, .5);
+  background-color: rgba(255, 255, 255, .5);
   background-attachment: fixed;
 }
 
 .game {
-  border : solid black 2px;
+  border: solid black 2px;
   background-color: rgba(255, 255, 255, 0.5);
-
 }
 
-.image{
+.image {
   max-width: 150px;
   max-height: 150px;
-  border : solid black 2px;
-
+  border: solid black 2px;
 }
 
-img.image{
+img.image {
   margin: 5px;
-}
-
-#body{
-  background-image: url("../images/background-mario.jpg");
-  background-size: cover;
-  text-align: right;
 }
 
 
@@ -95,13 +102,8 @@ img.image{
   justify-content: center;
 }
 
-.keyword{
+.keyword {
   margin-top: 30px;
-
-
 }
 
-
-
 /* MEDIA QUERYS!!!! */
-im

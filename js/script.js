@@ -35,7 +35,7 @@ $('document').ready(function() {
           let releaseDate = results.results[i].original_release_date;
           let platformList = results.results[i].platforms;
           let description = results.results[i].deck
-          console.log(description);
+          //console.log(description);
 
           // let platformsArr = []
           //
@@ -61,7 +61,7 @@ $('document').ready(function() {
           //MAKE EACH TITLE A CLICKABLE LINK TO THE DESCRIPTION
 
           let game = `<div class="game col-sm-4">
-          <h2> ${name} </h2>
+          <h3> ${name} </h3>
           <p> Released: ${releaseDate} </p>
           <p> Platforms: ${platformsArr} </p>
           <img class="image" src= ${image}>
