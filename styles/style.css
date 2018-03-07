@@ -1,17 +1,3 @@
-#body {
-  background-image: url("../images/background-mario.jpg");
-  background-size: cover;
-  /* text-align: right; */
-  /* align-content: center; */
-}
-
-#welcome {
-  font-family: 'Press Start 2P', cursive;
-  color: lime;
-  margin-top: 6px;
-  /* min-width: 768px; */
-}
-
 #header {
   background-color: black;
   background-image: url("../images/ezgif.com-resize.gif");
@@ -20,8 +6,23 @@
   width: 100%;
   height: 200px;
   /* background-repeat: no-repeat; */
-  /* background-size: cover; */
+  background-size: auto;
   border: solid green 2px;
+  text-align: center;
+}
+
+#body {
+  background-image: url("../images/background-mario.jpg");
+  background-size: cover;
+  /* text-align: right; */
+  /* align-content: center;  */
+}
+
+#welcome {
+  font-family: 'Press Start 2P', cursive;
+  color: lime;
+  margin-top: 6px;
+  /* min-width: 768px; */
 }
 
 .introduction {
@@ -73,7 +74,6 @@
   color: maroon;
   font-family: 'Press Start 2P', cursive;
   background-image: url("../images/background-mario.jpg");
-  /* filter: blur(15px); */
   background-size: cover;
   text-align: center;
   background-color: rgba(255, 255, 255, .5);
@@ -122,26 +122,17 @@ img.image {
 
 /* MEDIA QUERYS!!!! */
 
-@media screen
-  and (max-width: 768px) {
-
-    #welcome .row div h1 {
-      font-size: 1.0rem;
-    }
-
-    .introduction {
-      display: block;
-    }
-
-    #search {
-      width: initial;
-    }
-
-    #header {
-      height: 230px;
-    }
-
+@media screen and (max-width: 768px) {
+  #welcome .row div h1 {
+    font-size: 1.0rem;
+  }
+  .introduction {
+    display: block;
+  }
+  #search {
+    width: initial;
+  }
+  #header {
+    height: 230px;
+  }
 }
-
-
-/* @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {} */
