@@ -2,6 +2,7 @@ $('document').ready(function() {
   console.log("JS is connected!");
   updateSidebar();
 
+  // $("#spinner").hide()
 
   $("#search-button").on("click", function() {
     $("#results").empty();
@@ -19,9 +20,6 @@ $('document').ready(function() {
 
   })
 
-  // $(".fave-remove").on("click", function(event) {
-  //
-  // })
 
   function setFavorite(myId, myTitle) {
     let favorites = JSON.parse(localStorage.getItem("favorites") || '[]')
@@ -63,7 +61,7 @@ $('document').ready(function() {
     // test event.target
     console.log('target', event.target)
     let gameid = $(event.target).data('gameid')
-    console.log('gameid',gameid)
+    console.log('gameid', gameid)
 
     // remove from the DOM list
     let gameEle = $(event.target).parent()
@@ -72,23 +70,18 @@ $('document').ready(function() {
     //remove from local storage
     let favesArr = JSON.parse(localStorage.getItem("favorites") || '[]')
     for (let i = 0; i < favesArr.length; i++) {
-      if(favesArr[i].id === gameid){
+      if (favesArr[i].id === gameid) {
         favesArr.splice(i, 1)
       }
     }
     localStorage.setItem("favorites", JSON.stringify(favesArr))
   })
 
-
-
-
-
-
   $("#search-form").on("submit", searchHandler);
 
   function searchHandler(e) {
 
-    // show ajax spinner
+    $("#spinner").show()
 
     e.preventDefault();
     var query = $("#search-input").val();
@@ -111,7 +104,7 @@ $('document').ready(function() {
       success: function(results) {
         console.log("Results: ", results.results);
 
-        // hide ajax spinner
+        $("#spinner").hide()
 
         for (var i = 0; i < results.results.length; i++) {
           let name = results.results[i].name;
@@ -156,35 +149,27 @@ $('document').ready(function() {
           //MAKE EACH TITLE A CLICKABLE LINK TO THE DESCRIPTION
 
           let gameDescrip = `<div class="modal fade" id="modal${i}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">${name}</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p class="game-descrip">${description}</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
+          <div class="modal-dialog" role="document">
+          <div class="modal-content">
+          <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">${name}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+          <div class="modal-body">
+          <p class="game-descrip">${description}</p>
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+          </div>
+          </div>
           </div>`
-
-
-
-
 
           $('#results').append(game);
           $('#descrip-list').append(gameDescrip);
         }
-
-
-
-
       }
 
     });
