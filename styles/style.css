@@ -82,8 +82,8 @@
 }
 
 .image {
-  max-width: 150px;
-  max-height: 150px;
+  max-width: 200px;
+  max-height: 200px;
   border: solid black 2px;
   margin: 15px auto;
   display: block;
@@ -112,6 +112,30 @@
 
 .game-title {
   color: navy;
+}
+
+#faves {
+  position: absolute;
+  background: white;
+  width: 50%;
+  height: 100%;
+  z-index: 999999;
+  padding: 15px;
+  transform: translate(0px, 0px);
+  transition: 0.1s;
+  display: none;
+}
+
+.faves-hide {
+  transform: translate(-101%, 0px) !important;
+}
+
+.favesmenu-icon {
+  color: white;
+  position: absolute;
+  font-size: 30px;
+  top: 10px;
+  left: 10px;
 }
 
 /* MEDIA QUERYS!!!! */

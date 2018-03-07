@@ -18,17 +18,38 @@ $('document').ready(function() {
 
   function setFavorite(name,value){
     let favorites = JSON.parse(localStorage.getItem("favorites") || '{}')
-    console.log(favorites);
+
     favorites[name] = value
 
     localStorage.setItem("favorites", JSON.stringify(favorites))
   }
 
   function updateSidebar(){
-  let favorites =  JSON.parse(localStorage.getItem("favorites") || '{}')
-  $(game)
+    let favorites =  JSON.parse(localStorage.getItem("favorites") || '{}')
+    for (var names in favorites) {
+      if (favorites.hasOwnProperty(names)) {
+        $('#faves-list').append(`<li>
+          <span> ${names} </span>
+          <button> X </button>
+        </li>`);
+      }
+    }
+
+
+
 
   }
+
+  $(".favesmenu-icon").on("click", function () {
+    console.log("Clicked");
+    $("#faves").show()
+
+
+  })
+
+  $(".exit").on("click" , function (){
+    $("#faves").hide()
+  })
 
 
 
@@ -64,7 +85,7 @@ $('document').ready(function() {
 
         for (var i = 0; i < results.results.length; i++) {
           let name = results.results[i].name;
-          let image = results.results[i].image.small_url;
+          let image = results.results[i].image.medium_url;
           let releaseDate = results.results[i].original_release_date;
           let platformList = results.results[i].platforms;
           let description = results.results[i].deck
@@ -127,7 +148,7 @@ $('document').ready(function() {
 
 
           $('#results').append(game);
-          $('#descrip-list').append(gameDescrip)
+          $('#descrip-list').append(gameDescrip);
         }
 
 
