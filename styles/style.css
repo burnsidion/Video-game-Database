@@ -117,13 +117,17 @@
 #faves {
   position: absolute;
   background: white;
-  width: 50%;
+  width: 25%;
   height: 100%;
   z-index: 999999;
   padding: 15px;
   transform: translate(0px, 0px);
   transition: 0.1s;
   display: none;
+}
+
+.fave-remove {
+  cursor: pointer;
 }
 
 .faves-hide {

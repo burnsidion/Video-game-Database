@@ -1,5 +1,7 @@
 $('document').ready(function() {
   console.log("JS is connected!");
+  updateSidebar();
+
 
   $("#search-button").on("click", function() {
     $("#results").empty();
@@ -8,48 +10,76 @@ $('document').ready(function() {
   })
 
   $("#results").on("click", ".favorite", function(event) {
-    let game = $(event.target).closest(".game")
-    let name = $(game).find(".game-title").text()
-    setFavorite(name, true)
+    let game = $(event.target).closest(".game")[0]
+    let id = $(game).data('id')
+    let name = $(game).find(".game-title").text().trim()
+    setFavorite(id, name)
     updateSidebar()
 
 
   })
 
-  function setFavorite(name,value){
-    let favorites = JSON.parse(localStorage.getItem("favorites") || '{}')
+  // $(".fave-remove").on("click", function(event) {
+  //
+  // })
 
-    favorites[name] = value
+  function setFavorite(myId, myTitle) {
+    let favorites = JSON.parse(localStorage.getItem("favorites") || '[]')
+
+    // push on a new object representing a game, into the array
+    favorites.push({
+      id: myId,
+      title: myTitle
+    })
 
     localStorage.setItem("favorites", JSON.stringify(favorites))
   }
 
-  function updateSidebar(){
-    let favorites =  JSON.parse(localStorage.getItem("favorites") || '{}')
-    for (var names in favorites) {
-      if (favorites.hasOwnProperty(names)) {
-        $('#faves-list').append(`<li>
-          <span> ${names} </span>
-          <button> X </button>
-        </li>`);
-      }
+  function updateSidebar() {
+    favorites = JSON.parse(localStorage.getItem("favorites") || '[]')
+
+    // clear out sidebar list element
+    $('#faves-list').empty()
+
+    for (var i = 0; i < favorites.length; i++) {
+      $('#faves-list').append(`<li>
+        <span> ${favorites[i].title} </span>
+        <i class="fas fa-trash-alt fave-remove" data-gameid="${favorites[i].id}"></i>
+      </li>`);
     }
-
-
-
-
   }
 
-  $(".favesmenu-icon").on("click", function () {
-    console.log("Clicked");
+  $(".favesmenu-icon").on("click", function() {
+    // console.log("Clicked");
     $("#faves").show()
-
-
   })
 
-  $(".exit").on("click" , function (){
+  $(".exit").on("click", function() {
     $("#faves").hide()
   })
+
+  // Handle unfavorite-ing
+  $("#faves-list").on("click", function(event) {
+    // test event.target
+    console.log('target', event.target)
+    let gameid = $(event.target).data('gameid')
+    console.log('gameid',gameid)
+
+    // remove from the DOM list
+    let gameEle = $(event.target).parent()
+    gameEle.remove()
+
+    //remove from local storage
+    let favesArr = JSON.parse(localStorage.getItem("favorites") || '[]')
+    for (let i = 0; i < favesArr.length; i++) {
+      if(favesArr[i].id === gameid){
+        favesArr.splice(i, 1)
+      }
+    }
+    localStorage.setItem("favorites", JSON.stringify(favesArr))
+  })
+
+
 
 
 
@@ -73,7 +103,7 @@ $('document').ready(function() {
         limit: 100,
         query: `"${query}"`,
         format: "jsonp",
-        field_list: "name,image,original_release_date,deck,expected_release_year,platforms",
+        field_list: "name,image,original_release_date,deck,expected_release_year,platforms,id",
         resources: "game,platform",
         results: 100
       },
@@ -89,7 +119,8 @@ $('document').ready(function() {
           let releaseDate = results.results[i].original_release_date;
           let platformList = results.results[i].platforms;
           let description = results.results[i].deck
-          //console.log(description);
+          let gameID = results.results[i].id
+          // console.log(gameID);
 
           // let platformsArr = []
           //
@@ -114,7 +145,7 @@ $('document').ready(function() {
 
 
 
-          let game = `<div class="game col-sm-4">
+          let game = `<div class="game col-sm-4" data-id="${gameID}">
           <h4> <a class="game-title" href="#modal${i}" data-target="#modal${i}" data-toggle="modal"> ${name} </a> </h4>
           <p class="release-date"> Released: ${releaseDate} </p>
           <p class = "platform-list"> Platforms: ${platformsArr} </p>
