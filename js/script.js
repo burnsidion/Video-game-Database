@@ -36,6 +36,9 @@ $('document').ready(function() {
   $("#search-form").on("submit", searchHandler);
 
   function searchHandler(e) {
+
+    // show ajax spinner
+
     e.preventDefault();
     var query = $("#search-input").val();
     var url = `https://www.giantbomb.com/api/games/?api_key=38cff389d031a893f76688dcf11e5024bdf0f523`;
@@ -56,6 +59,8 @@ $('document').ready(function() {
 
       success: function(results) {
         console.log("Results: ", results.results);
+
+        // hide ajax spinner
 
         for (var i = 0; i < results.results.length; i++) {
           let name = results.results[i].name;
@@ -89,7 +94,7 @@ $('document').ready(function() {
 
 
           let game = `<div class="game col-sm-4">
-          <h3> <a class="game-title" href="#modal${i}" data-target="#modal${i}" data-toggle="modal"> ${name} </a> </h3>
+          <h4> <a class="game-title" href="#modal${i}" data-target="#modal${i}" data-toggle="modal"> ${name} </a> </h4>
           <p class="release-date"> Released: ${releaseDate} </p>
           <p class = "platform-list"> Platforms: ${platformsArr} </p>
           <img class="image" src= ${image}>
