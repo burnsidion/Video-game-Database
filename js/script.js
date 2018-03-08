@@ -2,7 +2,7 @@ $('document').ready(function() {
   console.log("JS is connected!");
   updateSidebar();
 
-  // $("#spinner").hide()
+  $("#spinner").hide()
 
   $("#search-button").on("click", function() {
     $("#results").empty();
