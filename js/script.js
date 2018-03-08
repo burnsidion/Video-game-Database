@@ -1,176 +1,175 @@
-$('document').ready(function() {
+
+var onReady = function() {
+
   console.log("JS is connected!")
+
   updateSidebar()
 
   $("#spinner").hide()
 
+  $("#search-form").on("submit", searchHandler)
+  $("#results").on("click", addFavoriteHandler)
+  $("#faves-list").on("click", deleteFavoriteHandler)
+
+  // for sliding the sidebar in
   $(".favesmenu-icon").on("click", function() {
     $("#faves").addClass("faves-show")
   })
 
+  // for sliding the sidebar out
   $(".exit").on("click", function() {
     $("#faves").removeClass("faves-show")
   })
 
-  $("#results").on("click", function(ev) {
-    let target = $(ev.target)
-    if(target.hasClass("add-fave-btn")) {
-      let game = target.closest(".game")[0]
-      let id = $(game).data('id')
-      let title = $(game).find(".game-title").text().trim()
-      setFavorite(id, title)
-      updateSidebar()
-    }
-  })
+} // end onReady
 
-  function setFavorite(myId, myTitle) {
-    let favorites = JSON.parse(localStorage.getItem("favorites") || '[]')
-    // push on a new object representing a game, into the array
-    favorites.push({
-      id: myId,
-      title: myTitle
-    })
-
-    // save to localstorage
-    localStorage.setItem("favorites", JSON.stringify(favorites))
+// Handle favoriting (both DOM and localStorage)
+var addFavoriteHandler = function(ev) {
+  let target = $(ev.target)
+  if(target.hasClass("add-fave-btn")) {
+    let game = target.closest(".game")[0]
+    let id = $(game).data('id')
+    let title = $(game).find(".game-title").text().trim()
+    addFaveToLocalStorage(id, title)
+    updateSidebar()
   }
+}
 
-  function updateSidebar() {
-    favorites = JSON.parse(localStorage.getItem("favorites") || '[]')
+// Handle unfavorite-ing (both DOM and localStorage)
+var deleteFavoriteHandler = function(event) {
+  // test event.target
+  console.log('target', event.target)
+  let gameid = $(event.target).data('gameid')
+  console.log('gameid', gameid)
 
-    // clear out sidebar list element
-    $('#faves-list').empty()
+  // remove from the DOM list
+  let gameEle = $(event.target).parent()
+  gameEle.remove()
 
-    for (var i = 0; i < favorites.length; i++) {
-      $('#faves-list').append(`<li>
-        <span class="list-of-favorites"> ${favorites[i].title} </span>
-        <i class="fas fa-trash-alt fave-remove" data-gameid="${favorites[i].id}"></i>
-      </li>`);
+  //remove from local storage
+  let favesArr = JSON.parse(localStorage.getItem("favorites") || '[]')
+  for (let i = 0; i < favesArr.length; i++) {
+    if (favesArr[i].id === gameid) {
+      favesArr.splice(i, 1)
     }
   }
+  localStorage.setItem("favorites", JSON.stringify(favesArr))
+}
 
-  // Handle unfavorite-ing
-  $("#faves-list").on("click", function(event) {
-    // test event.target
-    console.log('target', event.target)
-    let gameid = $(event.target).data('gameid')
-    console.log('gameid', gameid)
-
-    // remove from the DOM list
-    let gameEle = $(event.target).parent()
-    gameEle.remove()
-
-    //remove from local storage
-    let favesArr = JSON.parse(localStorage.getItem("favorites") || '[]')
-    for (let i = 0; i < favesArr.length; i++) {
-      if (favesArr[i].id === gameid) {
-        favesArr.splice(i, 1)
-      }
-    }
-    localStorage.setItem("favorites", JSON.stringify(favesArr))
+var addFaveToLocalStorage = function(myId, myTitle) {
+  let favorites = JSON.parse(localStorage.getItem("favorites") || '[]')
+  // push on a new object representing a game, into the array
+  favorites.push({
+    id: myId,
+    title: myTitle
   })
 
-  $("#search-form").on("submit", searchHandler)
+  // save to localstorage
+  localStorage.setItem("favorites", JSON.stringify(favorites))
+}
 
-  function searchHandler(e) {
+// update the DOM sidebar with contents of localStorage
+var updateSidebar = function() {
+  favorites = JSON.parse(localStorage.getItem("favorites") || '[]')
 
-    // clear out results list
-    $("#results").empty()
-    $("#descrip-list").empty()
+  // clear out sidebar list element
+  $('#faves-list').empty()
 
-    // indicate something is loading
-    $("#spinner").show()
+  for (var i = 0; i < favorites.length; i++) {
+    $('#faves-list').append(`<li>
+      <span class="list-of-favorites"> ${favorites[i].title} </span>
+      <i class="fas fa-trash-alt fave-remove" data-gameid="${favorites[i].id}"></i>
+    </li>`);
+  }
+}
 
-    e.preventDefault();
-    var query = $("#search-input").val();
-    var url = `https://www.giantbomb.com/api/games/?api_key=38cff389d031a893f76688dcf11e5024bdf0f523`;
+// Handle the search box submit
+var searchHandler = function(e) {
 
-    $.ajax({
-      url: "http://api.giantbomb.com/search",
-      dataType: "jsonp",
-      jsonp: "json_callback",
-      data: {
-        api_key: '38cff389d031a893f76688dcf11e5024bdf0f523',
-        limit: 100,
-        query: `"${query}"`,
-        format: "jsonp",
-        field_list: "name,image,original_release_date,deck,expected_release_year,platforms,id",
-        resources: "game,platform",
-        results: 100
-      },
+  // clear out results list
+  $("#results").empty()
+  $("#descrip-list").empty()
 
-      success: function(results) {
-        console.log("Results: ", results.results);
+  // indicate something is loading
+  $("#spinner").show()
 
-        $("#spinner").hide()
+  e.preventDefault();
+  var query = $("#search-input").val();
+  var url = `https://www.giantbomb.com/api/games/?api_key=38cff389d031a893f76688dcf11e5024bdf0f523`;
 
-        for (var i = 0; i < results.results.length; i++) {
-          let name = results.results[i].name;
-          let image = results.results[i].image.medium_url;
-          let releaseDate = results.results[i].original_release_date;
-          let platformList = results.results[i].platforms;
-          let description = results.results[i].deck
-          let gameID = results.results[i].id
-          // console.log(gameID);
+  $.ajax({
+    url: "http://api.giantbomb.com/search",
+    dataType: "jsonp",
+    jsonp: "json_callback",
+    data: {
+      api_key: '38cff389d031a893f76688dcf11e5024bdf0f523',
+      limit: 100,
+      query: `"${query}"`,
+      format: "jsonp",
+      field_list: "name,image,original_release_date,deck,expected_release_year,platforms,id",
+      resources: "game,platform",
+      results: 100
+    },
+    success: onAPISuccess
+  }) // end ajax
+} // end search handler
 
-          // let platformsArr = []
-          //
-          // if(platformList === null){
-          //   platformsArr = "UH-OH! No Platforms could be found!!!"
-          // } else {
-          //    platformsArr = platformList.map(function(platform) {
-          //
-          //     return platform.name
-          //   })
-          // }
+var onAPISuccess = function(results) {
+  console.log("Results: ", results.results);
+  $("#spinner").hide()
 
-          const platformsArr = (platformList === null) ?
-            `UH-OH! No platforms could be found!!` :
-            platformList.map(p => p.name);
+  for (var i = 0; i < results.results.length; i++) {
+    let name = results.results[i].name;
+    let image = results.results[i].image.medium_url;
+    let releaseDate = results.results[i].original_release_date;
+    let platformList = results.results[i].platforms;
+    let description = results.results[i].deck
+    let gameID = results.results[i].id
 
-          if (releaseDate === null) {
-            releaseDate = "TBA"
-          }
+    const platformsArr = (platformList === null) ?
+      `UH-OH! No platforms could be found!!` :
+      platformList.map(p => p.name);
 
-          releaseDate = releaseDate.replace('00:00:00', '')
+    if (releaseDate === null) {
+      releaseDate = "TBA"
+    }
 
-          let game = `<div class="game col-sm-4" data-id="${gameID}">
-            <h4><a class="game-title" href="#modal${i}" data-target="#modal${i}" data-toggle="modal">${name}</a></h4>
-            <p class="release-date">Released: ${releaseDate}</p>
-            <p class="platform-list">Platforms: ${platformsArr}</p>
-            <img class="image" src="${image}" />
-            <button class="btn btn-secondary add-fave-btn">Favorite</button>
-          </div>`
+    releaseDate = releaseDate.replace('00:00:00', '')
 
-          //MAKE EACH TITLE A CLICKABLE LINK TO THE DESCRIPTION
+    let game = `<div class="game col-sm-4" data-id="${gameID}">
+      <h4><a class="game-title" href="#modal${i}" data-target="#modal${i}" data-toggle="modal">${name}</a></h4>
+      <p class="release-date">Released: ${releaseDate}</p>
+      <p class="platform-list">Platforms: ${platformsArr}</p>
+      <img class="image" src="${image}" />
+      <button class="btn btn-secondary add-fave-btn">Favorite</button>
+    </div>`
 
-          let gameDescrip = `
-          <div class="modal fade" id="modal${i}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">${name}</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p class="game-descrip">${description}</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
+    //MAKE EACH TITLE A CLICKABLE LINK TO THE DESCRIPTION
+    let gameDescrip = `
+    <div class="modal fade" id="modal${i}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">${name}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-          `
+          <div class="modal-body">
+            <p class="game-descrip">${description}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    `
 
-          $('#results').append(game);
-          $('#descrip-list').append(gameDescrip);
-        }
-      }
+    $('#results').append(game);
+    $('#descrip-list').append(gameDescrip);
+  }
+}
 
-    }) // end ajax
-  } // end search handler
 
-}) // end document ready
+$('document').ready(onReady) //Do NOT FUCKING remove this god damned line or NOTHING will work, FUCKING CHRIST!
