@@ -3,10 +3,9 @@
   background-image: url("../images/ezgif.com-resize.gif");
   background-repeat: repeat-x;
   background-size: contain;
-  width: 100%;
   height: 200px;
-  border: solid green 2px;
   text-align: center;
+  border: 1px solid lime;
 }
 
 #body {
@@ -37,9 +36,11 @@
 #search-button {
   font-family: 'Orbitron', sans-serif;
   font-weight: bold;
-  color: black;
+  color: lime;
   height: 30px;
   padding-top: 4px;
+  border: 1px solid lime;
+  background: black;
 }
 
 #search-button:hover {
@@ -79,6 +80,7 @@
   background-color: rgba(255, 255, 255, 0.5);
   margin: 10px;
   padding: 10px;
+  overflow-wrap: break-word;
 }
 
 .image {
@@ -114,24 +116,47 @@
   color: navy;
 }
 
+/* button.add-fave-btn {
+  border: 1px solid black;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: bold;
+  color: black;
+  border: 1px solid black;
+  background: rgb(221, 221, 221);
+} */
+
 #faves {
   position: absolute;
   background: white;
-  width: 25%;
+  width: 75%;
   height: 100%;
-  z-index: 999999;
+  z-index: 1;
   padding: 15px;
-  transform: translate(0px, 0px);
+  transform: translate(-101%, 0px);
   transition: 0.1s;
-  display: none;
+  /* display: none; */
+  border-radius: 25px;
+  background: rgba(0, 255, 0, 0.9);
+
+
+}
+
+#faves-list {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 13px;
+}
+
+.fave-games {
+  font-family: 'Orbitron', sans-serif;
+  padding-top: 20px;
 }
 
 .fave-remove {
   cursor: pointer;
 }
 
-.faves-hide {
-  transform: translate(-101%, 0px) !important;
+.faves-show {
+  transform: translate(0px, 0px) !important;
 }
 
 .favesmenu-icon {
@@ -142,12 +167,29 @@
   left: 10px;
 }
 
+button.exit {
+  position: relative;
+  top: -4px;
+  left: -6px;
+  padding: 0px 7px;
+}
+
+button.exit:hover {
+  cursor: pointer;
+}
+
+.fa-bars:before {
+  content: "\f0c9";
+  cursor: pointer;
+  color: lime;
+}
 
 /* MEDIA QUERYS!!!! */
 
 @media screen and (max-width: 768px) {
   #welcome .row div h1 {
-    font-size: 1.0rem;
+    font-size: 1.2rem;
+    max-width: 95%;
   }
   .introduction {
     display: block;
@@ -155,9 +197,15 @@
   #search {
     width: initial;
   }
+  #search-input {
+    width: 160px;
+  }
   #header {
-    height: 230px;
+    height: 250px;
     background-repeat: no-repeat;
+  }
+  #faves {
+    width: 100%;
   }
   .col-sm-4:hover {
     transform: none;

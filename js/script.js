@@ -1,35 +1,37 @@
 $('document').ready(function() {
-  console.log("JS is connected!");
-  updateSidebar();
+  console.log("JS is connected!")
+  updateSidebar()
 
   $("#spinner").hide()
 
-  $("#search-button").on("click", function() {
-    $("#results").empty();
-    $("#descrip-list").empty();
-
+  $(".favesmenu-icon").on("click", function() {
+    $("#faves").addClass("faves-show")
   })
 
-  $("#results").on("click", ".favorite", function(event) {
-    let game = $(event.target).closest(".game")[0]
-    let id = $(game).data('id')
-    let name = $(game).find(".game-title").text().trim()
-    setFavorite(id, name)
-    updateSidebar()
-
-
+  $(".exit").on("click", function() {
+    $("#faves").removeClass("faves-show")
   })
 
+  $("#results").on("click", function(ev) {
+    let target = $(ev.target)
+    if(target.hasClass("add-fave-btn")) {
+      let game = target.closest(".game")[0]
+      let id = $(game).data('id')
+      let title = $(game).find(".game-title").text().trim()
+      setFavorite(id, title)
+      updateSidebar()
+    }
+  })
 
   function setFavorite(myId, myTitle) {
     let favorites = JSON.parse(localStorage.getItem("favorites") || '[]')
-
     // push on a new object representing a game, into the array
     favorites.push({
       id: myId,
       title: myTitle
     })
 
+    // save to localstorage
     localStorage.setItem("favorites", JSON.stringify(favorites))
   }
 
@@ -41,20 +43,11 @@ $('document').ready(function() {
 
     for (var i = 0; i < favorites.length; i++) {
       $('#faves-list').append(`<li>
-        <span> ${favorites[i].title} </span>
+        <span class="list-of-favorites"> ${favorites[i].title} </span>
         <i class="fas fa-trash-alt fave-remove" data-gameid="${favorites[i].id}"></i>
       </li>`);
     }
   }
-
-  $(".favesmenu-icon").on("click", function() {
-    // console.log("Clicked");
-    $("#faves").show()
-  })
-
-  $(".exit").on("click", function() {
-    $("#faves").hide()
-  })
 
   // Handle unfavorite-ing
   $("#faves-list").on("click", function(event) {
@@ -77,10 +70,15 @@ $('document').ready(function() {
     localStorage.setItem("favorites", JSON.stringify(favesArr))
   })
 
-  $("#search-form").on("submit", searchHandler);
+  $("#search-form").on("submit", searchHandler)
 
   function searchHandler(e) {
 
+    // clear out results list
+    $("#results").empty()
+    $("#descrip-list").empty()
+
+    // indicate something is loading
     $("#spinner").show()
 
     e.preventDefault();
@@ -136,43 +134,43 @@ $('document').ready(function() {
 
           releaseDate = releaseDate.replace('00:00:00', '')
 
-
-
           let game = `<div class="game col-sm-4" data-id="${gameID}">
-          <h4> <a class="game-title" href="#modal${i}" data-target="#modal${i}" data-toggle="modal"> ${name} </a> </h4>
-          <p class="release-date"> Released: ${releaseDate} </p>
-          <p class = "platform-list"> Platforms: ${platformsArr} </p>
-          <img class="image" src= ${image}>
-          <button class = "favorite"> Favorite </button>
+            <h4><a class="game-title" href="#modal${i}" data-target="#modal${i}" data-toggle="modal">${name}</a></h4>
+            <p class="release-date">Released: ${releaseDate}</p>
+            <p class="platform-list">Platforms: ${platformsArr}</p>
+            <img class="image" src="${image}" />
+            <button class="btn btn-secondary add-fave-btn">Favorite</button>
           </div>`
 
           //MAKE EACH TITLE A CLICKABLE LINK TO THE DESCRIPTION
 
-          let gameDescrip = `<div class="modal fade" id="modal${i}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-          <div class="modal-content">
-          <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">${name}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-          </button>
+          let gameDescrip = `
+          <div class="modal fade" id="modal${i}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">${name}</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p class="game-descrip">${description}</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="modal-body">
-          <p class="game-descrip">${description}</p>
-          </div>
-          <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
-          </div>
-          </div>
-          </div>`
+          `
 
           $('#results').append(game);
           $('#descrip-list').append(gameDescrip);
         }
       }
 
-    });
+    }) // end ajax
+  } // end search handler
 
-  }
-});
+}) // end document ready
