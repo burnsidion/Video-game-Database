@@ -43,8 +43,11 @@ var deleteFavoriteHandler = function(event) {
   console.log('gameid', gameid)
 
   // remove from the DOM list
-  let gameEle = $(event.target).parent()
-  gameEle.remove()
+
+  if($(event.target).hasClass("fave-remove")){
+    let gameEle = $(event.target).parent()
+    gameEle.remove()
+  }
 
   //remove from local storage
   let favesArr = JSON.parse(localStorage.getItem("favorites") || '[]')
