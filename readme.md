@@ -27,4 +27,4 @@ You will see your results pop up on the page, once there
 
 ## Support
 
-Please [open an issue](https://github.com/burnsidion/Q1-Project/issues) for support.
+Please [open an issue](https://github.com/burnsidion/Q1-Project-/issues) for support.
