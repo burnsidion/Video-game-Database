@@ -9,7 +9,7 @@ A database to search for games and game series.
 
 ## Usage
 
-<!-- Open http://vg-database.surge.sh -->
+Open http://VGDB.surge.sh
 
 Search for a game by
 
