@@ -1,6 +1,30 @@
-### MVP for Project
--[] user should be able to enter in name of game or single word.
+# Q1-VideoGame Database
 
--[] will be returned a list of all games on all consoles with that name or name containing word in input
+A database to search for games and game series.
 
--[] if the word cannot be found or returns to many results, return, "There are either too many games or no games, could you be more specific?"
+## Table of Contents
+
+- [Usage](#usage)
+- [Support](#support)
+
+## Usage
+
+Open http://vg-database.surge.sh
+
+Search for a game by
+
+- Entering either a game or a keyword into the search bar:![search-bar-link](images/searchbar.png)
+- Click "search"
+
+You will see your results pop up on the page, once there
+
+- Click on the title for a game to view a brief description of the game :![results-click-link](images/results.png)
+
+- You can add a game to your list of favorites by clicking the "favorite" button under each game image :![favorites-list-link](images/favorits.png)
+
+- To "Un" favorite a game, simply click the trashcan icon next to each game
+
+
+## Support
+
+Please [open an issue](https://github.com/burnsidion/Q1-Project/issues.md) for support.
