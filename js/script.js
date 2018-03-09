@@ -58,14 +58,25 @@ var deleteFavoriteHandler = function(event) {
 
 var addFaveToLocalStorage = function(myId, myTitle) {
   let favorites = JSON.parse(localStorage.getItem("favorites") || '[]')
-  // push on a new object representing a game, into the array
-  favorites.push({
-    id: myId,
-    title: myTitle
-  })
 
-  // save to localstorage
-  localStorage.setItem("favorites", JSON.stringify(favorites))
+  let found = false
+  for (let i = 0; i < favorites.length; i++) {
+    if (favorites[i].id === myId) {
+      found = true
+    }
+  }
+
+  // push on a new object representing a game, into the array
+  if(!found) {
+    favorites.push({
+      id: myId,
+      title: myTitle
+    })
+
+    // save to localstorage
+    localStorage.setItem("favorites", JSON.stringify(favorites))
+  }
+
 }
 
 // update the DOM sidebar with contents of localStorage

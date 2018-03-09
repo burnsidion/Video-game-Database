@@ -1,7 +1,7 @@
 {
   "name": "mocha-browser",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "js/script.js",
   "license": "MIT",
   "scripts": {
     "mocha": "mocha"
