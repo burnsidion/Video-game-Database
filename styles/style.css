@@ -3,7 +3,7 @@
   background-image: url("../images/ezgif.com-resize.gif");
   background-repeat: repeat-x;
   background-size: contain;
-  height: 200px;
+  height: 210px;
   text-align: center;
   border: 1px solid lime;
 }
@@ -27,6 +27,19 @@
   display: inline;
   position: relative;
   top: 2px;
+}
+
+.filter-box {
+  font-family: 'Press Start 2P', cursive;
+  color: lime;
+  display: inline;
+  position: relative;
+  top: 2px;
+  margin-left: 30px;
+}
+
+.drop-down{
+  margin-top: 6px;
 }
 
 #results h3 {
@@ -137,8 +150,6 @@
   /* display: none; */
   border-radius: 25px;
   background: rgba(0, 255, 0, 0.9);
-
-
 }
 
 #faves-list {
@@ -182,6 +193,10 @@ button.exit:hover {
   content: "\f0c9";
   cursor: pointer;
   color: lime;
+}
+
+.music {
+  display: none;
 }
 
 /* MEDIA QUERYS!!!! */
